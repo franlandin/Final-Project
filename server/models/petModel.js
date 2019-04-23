@@ -27,7 +27,7 @@ module.exports = class Pet {
   }
 
   static fetchAvailable() {
-    return db.query('SELECT * FROM rent WHERE available_date IS NULL');
+    return db.execute('SELECT * FROM rent WHERE available_date IS NULL');
   }
 
   static findById(id) {

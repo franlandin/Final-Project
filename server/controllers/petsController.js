@@ -5,9 +5,10 @@ const Pet = require('../models/petModel');
 exports.getAvailablePets = (req, res, next) => {
     Pet.fetchAvailable()    
     .then((rows) => {
-      
-      console.log(rows);
-      res.send(rows);
+      rows = {
+        a:rows
+      }; 
+      res.send(rows.a[0]);
       
     })
     .catch(err => console.log(err));
@@ -23,7 +24,6 @@ exports.postAddPet = (req, res, next) => {
   const description = req.body.description;
   const pet = new Pet(null, name, refugee, city, available, price, imageUrl, null, description);
   const token = req.params.token;
-  console.log("hola");
   pet
     .save()
     .then(() => {
@@ -36,24 +36,18 @@ exports.postAddPet = (req, res, next) => {
   
 
 exports.getAddPets = (req, res, next) => {
-  const token = req.params.token;
-  res.render('pets/add-pets', {
-    token,
-    pageTitle: 'Add Pet',
+  res.send({
   });
 };
 
 
   exports.getEditPet = (req, res, next) => {
     const petId = req.params.petId;
-    const token = req.params.token;
     console.log("hola");
     Pet.findById(petId)    
     .then(([row]) => {
       console.log("hola");
-      res.render('pets/edit-pet', {
-        token,
-        pageTitle: 'Edita tu mascota',
+      res.send( {
         pet : row[0]
       })     
     })
@@ -90,24 +84,20 @@ exports.getAddPets = (req, res, next) => {
 
   exports.postRentPet = (req, res, next) => {
     const id = req.params.petId;
-    const token = req.params.token;
     console.log(id);
-    const interval = req.body.interval;
-    console.log(interval);
-    Pet.rentPet(interval, id)
+
+    Pet.rentPet( id)
     .then(() => {
-      res.redirect(`/pets/token/${token}`);
+      res.send('hecho');
     })
     .catch(err => console.log(err));
   };
   exports.getRentPet = (req, res, next) => {
-    const petId = req.params.petId;
-    const token = req.params.token;
+    const petId = req.body.petId;
     Pet.findById(petId)
     .then(([row]) => {
-      res.render('pets/rent-pet', {
-        token,
-        pageTitle: 'Alquila la mascota',
+      res.send( {
+
         pet : row[0]
       })     
     })

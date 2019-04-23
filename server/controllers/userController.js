@@ -61,6 +61,63 @@ function doRegister (req, res){
     })
 }
 
+function findUser (req, res){
+    const uname = req.body.username;
+    model.findByUsername(uname)
+    .then(result => {
+        console.log(result.length);
+        if(result.length !== 1){
+            res.send({message : {type : 'error', text: 'bad credentials'}});
+        } else{
+            const user = result[0];
+
+            if(cryptPasswd !== dbPass){
+                res.send({message : {type : 'error', text: 'bad credentials'}})
+            } else {
+                const info = {id: user.id, name: user.username};
+                var token = Token.buildToken(info);
+                res.send(token);                       
+            }
+        }
+    })
+    .catch(err => {
+        res.send( {message: {color: 'red', text: 'something failed'}, error: err});
+    })
+}
+
+function updateUser (req, res){
+    const id = req.body.user_id;
+    const type = req.body.usertype;
+    const price = req.body.care_price;
+    const city = req.body.city;
+    const address = req.body.address;
+    model.updateUser(type, price, city, address, id)
+    .then(result => {
+        console.log(result.length);
+        if(result.length !== 0){
+            console.log("vas bien");
+            res.send( {message : {type : 'error', text: 'User is taken'}});
+        } else{
+            const pass = req.body.password;
+            const pass2 = req.body.password2;
+            if(pass !== pass2){
+                res.send({message : {type : 'error', text: 'Passwords dont match'}});
+            }
+            else{
+                const pwd = req.body.password;
+                const cryptPasswd = crypt.encryptPass(pwd);
+                model.registerUser(un, cryptPasswd)
+                .then(() => {                    
+                    res.send({message : {type : 'info', text: 'Usuario creado'}})
+                })                
+            }
+        }
+    })
+    .catch(err => {
+        res.send( {message: {color: 'red', text: 'something failed'}, error: err});
+    })
+}
+
 module.exports = {
     doLogin,
     doRegister
