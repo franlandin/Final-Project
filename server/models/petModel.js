@@ -34,31 +34,13 @@ module.exports = class Pet {
     return db.execute('SELECT * FROM rent WHERE rent.rent_pet_id = ?', [id]);
   }
 
-  static deleteById(id){
-    return db.execute('DELETE FROM rent WHERE rent_pet_id = ?', [id]);
-  }
-
   static updatePet(name, refugee, city, price, image_url, description, id){
     return db.execute('UPDATE rent SET pet_name = ?, refugee = ?, city = ?, available = 1, price = ?, imageUrl = ?, available_date = NULL, pet_description = ? WHERE rent_pet_id = ?', [name, refugee, city, price, image_url, description, id])
   }
   static rentPet(interval, id){
-    return db.execute('UPDATE rent SET available = ?, available_date = DATE_ADD(CURDATE(), INTERVAL ? DAY) WHERE rent_pet_id = ?', [0, interval, id])
-  }
-  static sortByCity(){
-    return db.execute('SELECT * FROM rent ORDER BY city');
-  }
-  static sortByName(){
-    return db.execute('SELECT * FROM rent ORDER BY pet_name');
-  }
-  static sortByRefugee(){
-    return db.execute('SELECT * FROM rent ORDER BY refugee');
-  }
-  static sortByAvailable(){
-    return db.execute('SELECT * FROM rent ORDER BY available DESC');
-  }
-  static sortByPrice(){
-    return db.execute('SELECT * FROM rent ORDER BY price');
-  }
+    return db.execute('UPDATE rent SET available = ?) WHERE rent_pet_id = ?', [0])
+  } 
+
 };
 
  
