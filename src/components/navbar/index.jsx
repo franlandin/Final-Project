@@ -44,7 +44,7 @@ class Navbar extends React.Component {
       <div>
         <header>
           
-            <MDBNavbar color="indigo" dark expand="md" fixed="top">
+            <MDBNavbar color="indigo" dark expand="md" >
               <MDBNavbarBrand href="/">
                 <strong>Navbar</strong>
               </MDBNavbarBrand>
@@ -53,7 +53,7 @@ class Navbar extends React.Component {
               )}
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav left>
-                  <MDBNavItem active>
+                  <MDBNavItem >
                     <MDBNavLink to="/rent">Rent</MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
@@ -65,11 +65,10 @@ class Navbar extends React.Component {
                 </MDBNavbarNav>
                 <MDBNavbarNav right>
                   <MDBNavItem>
-                    <MDBNavLink to="#!" onClick={this.toggle}>
+                    <MDBNavLink to="/login" onClick={this.toggle}>
                       <div className="d-none d-md-inline">Login </div>
                       <MDBIcon icon="sign-in-alt" className="d-inline-inline"/>
-                      <ModalPage modal={this.state.modal} />
-                      
+                      <ModalPage modal={this.state.modal} />                      
                     </MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>

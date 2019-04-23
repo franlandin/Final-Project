@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import request from 'request';
-import { MDBCol, MDBInput, MDBBtn, MDBContainer, MDBRow } from "mdbreact";
+import { MDBCol, MDBInput, MDBBtn, MDBContainer, MDBRow, NavLink } from "mdbreact";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -73,6 +73,10 @@ class LoginForm extends Component {
               <div className="text-center py-4 mt-3">
                 <MDBBtn color="cyan" onClick={this.postForm}>
                   Login
+                </MDBBtn>
+                <MDBBtn color="cyan" onClick={this.postForm}>
+                  <NavLink to="/register">Register</NavLink>
+                  
                 </MDBBtn>
               </div>
             </form>          

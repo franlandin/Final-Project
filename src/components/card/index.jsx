@@ -1,5 +1,7 @@
 import React, {Component} from "react";
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol, Card } from 'mdbreact';
+import request from 'request';
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
+import {Link} from 'react-router-dom';
 
 
 class CardToShow extends Component {
@@ -8,6 +10,14 @@ class CardToShow extends Component {
       this.state = {
        
       };
+    }
+    postForm = () =>{
+        console.log(this.state.password);   
+        request.post('http://localhost:5000/rent/login', {form:{rent_pet_id: this.state.username, password: this.state.password}}, function(err,httpResponse,body){
+          if(body[0] === "e"){
+            localStorage.setItem("token", body )
+          }
+        })
     }
     render() {
 
@@ -22,7 +32,8 @@ class CardToShow extends Component {
                     <MDBCardText>
                         {content.city}
                     </MDBCardText>
-                    <MDBBtn href="#">Alquilar</MDBBtn>
+                    <MDBBtn href="">Alquilar</MDBBtn>
+                    <Link to={`/pet/edit/${content.rent_pet_id}`} content={content}>Editar</Link>
                     </MDBCardBody>
                 </MDBCard>
             </MDBCol>

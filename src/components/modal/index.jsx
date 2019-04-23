@@ -17,15 +17,15 @@ class ModalPage extends Component {
     register: false
   };
 
-  static getDerivedStateFromProps(props, state) {
-    if (state.modal !== props.modal) {
-      return {
-        ...state,
-        modal: props.modal
-      };
-    }
-    return state;
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   if (state.modal !== props.modal) {
+  //     return {
+  //       ...state,
+  //       modal: props.modal
+  //     };
+  //   }
+  //   return state;
+  // }
 
   changeToRegister = () => {
     if (this.state.register === false) {

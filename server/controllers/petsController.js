@@ -62,31 +62,29 @@ exports.getAddPets = (req, res, next) => {
     const price = req.body.price;
     const imageUrl = req.body.imageUrl;
     const description = req.body.description;
-    const token = req.params.token;
     console.log(name, refugee, city, price, imageUrl, description, id);
     Pet.updatePet(name, refugee, city, price, imageUrl, description, id)
     .then(() => {
       console.log("ok");
-      res.redirect(`/pets/token/${token}`);
+      res.send("todo ok");
     })
     .catch(err => console.log(err));
   };
 
   exports.postDeletePet = (req, res, next) => {
-    const id = req.params.petId;
-    const token = req.params.token;
+    const id = req.body.petId;
+
     Pet.deleteById(id)
     .then(() => {
-      res.redirect(`/pets/token/${token}`);
+      res.send("hecho");
     })
     .catch(err => console.log(err));
   };
 
   exports.postRentPet = (req, res, next) => {
-    const id = req.params.petId;
+    const id = req.body.petId;
     console.log(id);
-
-    Pet.rentPet( id)
+    Pet.rentPet(id)
     .then(() => {
       res.send('hecho');
     })
@@ -97,7 +95,6 @@ exports.getAddPets = (req, res, next) => {
     Pet.findById(petId)
     .then(([row]) => {
       res.send( {
-
         pet : row[0]
       })     
     })

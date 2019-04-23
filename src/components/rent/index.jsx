@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import request from 'request';
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
 import ShowCard from "../showcard";
 
 
