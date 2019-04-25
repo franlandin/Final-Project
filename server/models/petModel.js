@@ -27,7 +27,7 @@ module.exports = class Pet {
   }
 
   static fetchAvailable() {
-    return db.execute('SELECT * FROM rent WHERE available_date IS NULL');
+    return db.execute('SELECT * FROM rent WHERE available = 1');
   }
 
   static findById(id) {
@@ -37,8 +37,8 @@ module.exports = class Pet {
   static updatePet(name, refugee, city, price, image_url, description, id){
     return db.execute('UPDATE rent SET pet_name = ?, refugee = ?, city = ?, available = 1, price = ?, imageUrl = ?, available_date = NULL, pet_description = ? WHERE rent_pet_id = ?', [name, refugee, city, price, image_url, description, id])
   }
-  static rentPet(interval, id){
-    return db.execute('UPDATE rent SET available = ?) WHERE rent_pet_id = ?', [0])
+  static rentPet(id){
+    return db.execute('UPDATE rent SET available = ? WHERE rent_pet_id = ?', [0, id])
   } 
 
 };

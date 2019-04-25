@@ -8,12 +8,12 @@ export default class FormPage extends React.Component {
     this.state = {
       pet: {},
       id: this.props.match.params.id,
-      pet_name: null,
-      refugee: null,
-      city:null,
-      pet_description: null,
-      price: null,
-      imageUrl: null,
+      pet_name: "",
+      refugee: "",
+      city: "",
+      pet_description: "",
+      price: "",
+      imageUrl: "",
       redirect: false
 
     };
@@ -25,7 +25,6 @@ export default class FormPage extends React.Component {
       `http://localhost:5000/rent/edit-pet/${this.props.match.params.id}`,{headers:{"Authorization": token}},
       function(err, httpResponse, body) {
         const bodyparse = JSON.parse(body);
-        console.log(bodyparse.pet);
         this.setState({ 
             pet: bodyparse.pet,
             pet_name: bodyparse.pet.pet_name,
@@ -42,10 +41,14 @@ export default class FormPage extends React.Component {
     );
   };
   postForm = () =>{
-    console.log(this.state.password);   
-    request.post(`http://localhost:5000/rent/edit-pet/${this.props.match.params.id}`, {form:{name: this.state.pet_name, refugee: this.state.refugee, city: this.state.city, price: this.state.price, imageUrl:this.state.imageUrl }}, function(err,httpResponse,body){
-        // this.setState({redirect: true})
-      }
+    console.log(this.state.pet_name);
+    const token = localStorage.getItem("token");
+    const form = {name: this.state.pet_name, refugee: this.state.refugee, city: this.state.city, price: this.state.price, imageUrl:this.state.imageUrl };
+    console.log(form);
+    request.post(`http://localhost:5000/rent/edit-pet/${this.props.match.params.id}`, {headers:{"Authorization": token}, form:{name: this.state.pet_name, refugee: this.state.refugee, city: this.state.city, price: this.state.price, description:this.state.pet_description, imageUrl:this.state.imageUrl }}, function(err,httpResponse,body){
+      console.log(form)
+      this.setState({redirect: true})
+      }.bind(this)
     )
   }
 
@@ -79,7 +82,7 @@ export default class FormPage extends React.Component {
                 id="defaultFormRegisterNameEx"
                 className="form-control"
                 value={this.state.pet_name}
-                onInput={this.handleInput}
+                onChange={this.handleInput}
               />
               <br />
               
@@ -94,7 +97,7 @@ export default class FormPage extends React.Component {
                 id="defaultFormRegisterNameEx"
                 className="form-control"
                 value={this.state.city}
-                onInput={this.handleInput}
+                onChange={this.handleInput}
               />
               <br />
               
@@ -109,7 +112,7 @@ export default class FormPage extends React.Component {
                 id="defaultFormRegisterNameEx"
                 className="form-control"
                 value={this.state.imageUrl}
-                onInput={this.handleInput}
+                onChange={this.handleInput}
               />
               <br />
               
@@ -124,7 +127,7 @@ export default class FormPage extends React.Component {
                 id="defaultFormRegisterNameEx"
                 className="form-control"
                 value={this.state.pet_description}
-                onInput={this.handleInput}
+                onChange={this.handleInput}
               />
               <br />
               
@@ -139,7 +142,7 @@ export default class FormPage extends React.Component {
                 id="defaultFormRegisterNameEx"
                 className="form-control"
                 value={this.state.price}
-                onInput={this.handleInput}
+                onChange={this.handleInput}
               />
               <br />
 
@@ -154,12 +157,12 @@ export default class FormPage extends React.Component {
                 id="defaultFormRegisterNameEx"
                 className="form-control"
                 value={this.state.refugee}
-                onInput={this.handleInput}
+                onChange={this.handleInput}
               />
               <br />
               <div className="text-center mt-4">
                 <MDBBtn color="unique" onClick={this.postForm}>
-                  Edita
+                  Editar
                 </MDBBtn>
                 <MDBBtn color="unique" type="submit">
                   Borra

@@ -49,12 +49,14 @@ exports.getAddPets = (req, res, next) => {
       console.log("hola");
       res.send( {
         pet : row[0]
-      })     
+      }) 
+      console.log(row[0])    
     })
     .catch(err => console.log(err));
   }
 
   exports.postEditPet = (req, res, next) => {
+    console.log(req.body);
     const id = req.params.petId;
     const name = req.body.name;
     const refugee = req.body.refugee;
@@ -62,6 +64,7 @@ exports.getAddPets = (req, res, next) => {
     const price = req.body.price;
     const imageUrl = req.body.imageUrl;
     const description = req.body.description;
+    // console.log(id);
     console.log(name, refugee, city, price, imageUrl, description, id);
     Pet.updatePet(name, refugee, city, price, imageUrl, description, id)
     .then(() => {
@@ -82,7 +85,7 @@ exports.getAddPets = (req, res, next) => {
   };
 
   exports.postRentPet = (req, res, next) => {
-    const id = req.body.petId;
+    const id = req.params.petId;
     console.log(id);
     Pet.rentPet(id)
     .then(() => {
