@@ -1,9 +1,7 @@
 const dbConn = require('../config/dbConn');
 const TABLE = "users";
 const SQL_FIND_BY_USERNAME = (name) => "select * from " + TABLE + " WHERE username = '" + name + "'";
-
 const SQL_REGISTER = (uname, upass) => "INSERT INTO " + TABLE + " (username, userpass, usertype) VALUES  ('" + uname + "', '" + upass + "')";
-
 const SQL_UPDATE_USER= (type, price, city, add, userId) => "UPDATE users SET usertype = '" + type + "', care_price = '" + price  + "', city = '" + city + "', address = '" + add + "' WHERE user_id = " + userId;
 
 

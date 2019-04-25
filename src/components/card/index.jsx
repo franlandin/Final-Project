@@ -8,7 +8,7 @@ class CardToShow extends Component {
     constructor(props) {
       super(props);
       this.state = {
-       
+       redirect:false
       };
     }
     postForm = () =>{
@@ -22,7 +22,7 @@ class CardToShow extends Component {
     rentPet = () =>{
         const token = localStorage.getItem("token");
         console.log(this.props.content.rent_pet_id);   
-        request.post(`http://localhost:5000/rent-pet/${this.props.content.rent_pet_id}/`, {headers:{"Authorization": token}, }, function(err,httpResponse,body){
+        request.post(`http://localhost:5000/rent/rent-pet/${this.props.content.rent_pet_id}/`, {headers:{"Authorization": token}, }, function(err,httpResponse,body){
           this.setState({redirect: true})
           }.bind(this)
         )

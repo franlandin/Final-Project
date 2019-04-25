@@ -48,7 +48,7 @@ export default class FormPage extends React.Component {
 
   deletePet = () =>{
     const token = localStorage.getItem("token");    
-    request.post(`http://localhost:5000/rent/edit-pet/${this.props.match.params.id}/delete/`, {headers:{"Authorization": token}, }, function(err,httpResponse,body){
+    request.post(`http://localhost:5000/rent/edit-pet/${this.props.match.params.id}/delete/`, {headers:{"Authorization": token} }, function(err,httpResponse,body){
       this.setState({redirect: true})
       }.bind(this)
     )
