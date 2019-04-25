@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import request from 'request';
 import { MDBCol, MDBInput, MDBBtn, MDBContainer, MDBRow, NavLink } from "mdbreact";
+import { Redirect } from 'react-router-dom';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -31,18 +32,16 @@ class LoginForm extends Component {
   //   .catch(err => console.log(err));
   //   //console.log(body);
   // }
-  postForm = () =>{
-    console.log(this.state.password);   
-    request.post('http://localhost:5000/users/login', {form:{username: this.state.username, password: this.state.password}}, function(err,httpResponse,body){
-      if(body[0] === "e"){
-        localStorage.setItem("token", body )
-      }
-    })
-  }
 
   render() {
+    let redirect = null;
+    if (this.props.redirect) {
+      redirect = <Redirect to="/rent" />;
+    }
+
     return (
       <MDBContainer>
+        {redirect}
         <MDBRow>
           <MDBCol md="12">        
             <form>
@@ -71,7 +70,7 @@ class LoginForm extends Component {
               />
               </div>
               <div className="text-center py-4 mt-3">
-                <MDBBtn color="cyan" onClick={this.postForm}>
+                <MDBBtn color="cyan" onClick={() => {this.props.postForm(this.state.username, this.state.password)}}>
                   Login
                 </MDBBtn>
               </div>

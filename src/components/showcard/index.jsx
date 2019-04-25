@@ -23,7 +23,6 @@ class ShowCard extends Component {
         if(!content) return null;
 
         return (
-
             <CardToShow content={content} type={type}/>
         )
     }

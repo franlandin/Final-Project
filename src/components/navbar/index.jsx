@@ -39,33 +39,47 @@ class Navbar extends React.Component {
     });
   };
 
+
   render() {
+    let login = (
+      <MDBNavLink to="/login" onClick={this.toggle}>
+        <div className="d-none d-md-inline">Login </div>
+        <MDBIcon icon="sign-in-alt" className="d-inline-inline" />
+      </MDBNavLink>
+    );
+    if (this.props.login) {
+      login = (
+        <React.Fragment>
+          <MDBNavLink to="/" onClick={this.props.deleteToken}>
+          <div className="d-none d-md-inline">Logout </div>
+          <MDBIcon icon="sign-in-alt" className="d-inline-inline" />
+          </MDBNavLink>
+        </React.Fragment>
+      );
+    }
     return (
       <div>
-        <header>          
-            <MDBNavbar color="indigo" dark expand="md" className="mb-5" >
-              <MDBNavbarBrand href="/">
-                <strong>Mas.cot</strong>
-              </MDBNavbarBrand>
-              {!this.state.isWideEnough && (
-                <MDBNavbarToggler onClick={this.onClick} />
-              )}
-              <MDBCollapse isOpen={this.state.collapse} navbar>
-                <MDBNavbarNav left>
-                  <MDBNavItem >
-                    <MDBNavLink to="/rent">Rent</MDBNavLink>
-                  </MDBNavItem>                  
-                </MDBNavbarNav>
-                <MDBNavbarNav right>
-                  <MDBNavItem>
-                    <MDBNavLink to="/login" onClick={this.toggle}>
-                      <div className="d-none d-md-inline">Login </div>
-                      <MDBIcon icon="sign-in-alt" className="d-inline-inline"/>                  
-                    </MDBNavLink>
-                  </MDBNavItem>
-                </MDBNavbarNav>
-              </MDBCollapse>
-            </MDBNavbar>
+        <header>
+          <MDBNavbar color="indigo" dark expand="md" className="mb-5">
+            <MDBNavbarBrand href="/">
+              <strong>Mas.cot</strong>
+            </MDBNavbarBrand>
+            {!this.state.isWideEnough && (
+              <MDBNavbarToggler onClick={this.onClick} />
+            )}
+            <MDBCollapse isOpen={this.state.collapse} navbar>
+              <MDBNavbarNav left>
+                <MDBNavItem>
+                  <MDBNavLink to="/rent">Rent</MDBNavLink>
+                </MDBNavItem>
+              </MDBNavbarNav>
+              <MDBNavbarNav right>
+                <MDBNavItem>
+                {login}
+                </MDBNavItem>
+              </MDBNavbarNav>
+            </MDBCollapse>
+          </MDBNavbar>
         </header>
       </div>
     );

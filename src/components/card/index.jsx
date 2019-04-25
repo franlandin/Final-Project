@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import request from "request";
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 
 class CardToShow extends Component {
@@ -30,10 +30,15 @@ class CardToShow extends Component {
     render() {
 
         const { content, type} = this.props;
+        let redirect = null;
+        if (this.state.redirect) {
+          window.location.reload();
+        }
         if(content && type === 1){
             return(                
                 <MDBCol md="4">
-                <MDBCard style={{ width: "22rem" }}>
+                {redirect}
+                <MDBCard style={{ width: "22rem" }} className="mb-5">
                     <MDBCardImage className="img-fluid" src={content.imageUrl} waves />
                     <MDBCardBody>
                     <MDBCardTitle>{content.pet_name}</MDBCardTitle>
