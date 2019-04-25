@@ -23,7 +23,7 @@ module.exports = class Pet {
   }
 
   static deleteById(id) {
-    return db.execute('DELETE FROM rent WHERE rent.id = ?', [id]);
+    return db.execute('DELETE FROM rent WHERE rent.rent_pet_id = ?', [id]);
   }
 
   static fetchAvailable() {

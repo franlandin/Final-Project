@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import request from 'request';
+import request from "request";
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
 import {Link} from 'react-router-dom';
 
@@ -19,12 +19,20 @@ class CardToShow extends Component {
           }
         })
     }
+    rentPet = () =>{
+        const token = localStorage.getItem("token");
+        console.log(this.props.content.rent_pet_id);   
+        request.post(`http://localhost:5000/rent-pet/${this.props.content.rent_pet_id}/`, {headers:{"Authorization": token}, }, function(err,httpResponse,body){
+          this.setState({redirect: true})
+          }.bind(this)
+        )
+      }
     render() {
 
         const { content, type} = this.props;
         if(content && type === 1){
             return(                
-                <MDBCol>
+                <MDBCol md="4">
                 <MDBCard style={{ width: "22rem" }}>
                     <MDBCardImage className="img-fluid" src={content.imageUrl} waves />
                     <MDBCardBody>
@@ -32,8 +40,11 @@ class CardToShow extends Component {
                     <MDBCardText>
                         {content.city}
                     </MDBCardText>
-                    <MDBBtn href="">Alquilar</MDBBtn>
-                    <Link to={`/pet/edit/${content.rent_pet_id}`} content={content}>Editar</Link>
+                    <MDBCardText>
+                        {content.price} €
+                    </MDBCardText>
+                    <MDBBtn href="" onClick={this.rentPet}>Alquilar</MDBBtn>
+                    <MDBBtn><Link to={`/pet/edit/${content.rent_pet_id}`} content={content}>Editar</Link> </MDBBtn>
                     </MDBCardBody>
                 </MDBCard>
             </MDBCol>
@@ -51,7 +62,7 @@ class CardToShow extends Component {
                         Some quick example text to build on the card title and make
                         up the bulk of the card&apos;s content.
                     </MDBCardText>
-                    <MDBBtn href="#">MDBBtn</MDBBtn>
+                    <MDBBtn href="#" >MDBBtn</MDBBtn>
                     </MDBCardBody>
                 </MDBCard>
             </MDBCol>

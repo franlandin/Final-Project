@@ -42,11 +42,10 @@ class Navbar extends React.Component {
   render() {
     return (
       <div>
-        <header>
-          
-            <MDBNavbar color="indigo" dark expand="md" >
+        <header>          
+            <MDBNavbar color="indigo" dark expand="md" className="mb-5" >
               <MDBNavbarBrand href="/">
-                <strong>Navbar</strong>
+                <strong>Mas.cot</strong>
               </MDBNavbarBrand>
               {!this.state.isWideEnough && (
                 <MDBNavbarToggler onClick={this.onClick} />
@@ -55,20 +54,13 @@ class Navbar extends React.Component {
                 <MDBNavbarNav left>
                   <MDBNavItem >
                     <MDBNavLink to="/rent">Rent</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem>
-                    <MDBNavLink to="#">Care</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem>
-                    <MDBNavLink to="#">Profile</MDBNavLink>
-                  </MDBNavItem>
+                  </MDBNavItem>                  
                 </MDBNavbarNav>
                 <MDBNavbarNav right>
                   <MDBNavItem>
                     <MDBNavLink to="/login" onClick={this.toggle}>
                       <div className="d-none d-md-inline">Login </div>
-                      <MDBIcon icon="sign-in-alt" className="d-inline-inline"/>
-                      <ModalPage modal={this.state.modal} />                      
+                      <MDBIcon icon="sign-in-alt" className="d-inline-inline"/>                  
                     </MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>

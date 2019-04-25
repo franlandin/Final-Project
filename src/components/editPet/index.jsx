@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 import request from "request";
 
 export default class FormPage extends React.Component {
@@ -33,20 +33,30 @@ export default class FormPage extends React.Component {
             imageUrl: bodyparse.pet.imageUrl,
             price: bodyparse.pet.price,
             pet_description: bodyparse.pet.pet_description
-
         })
-        console.log(bodyparse.pet.pet_name);
-
       }.bind(this)
     );
   };
   postForm = () =>{
-    console.log(this.state.pet_name);
     const token = localStorage.getItem("token");
-    const form = {name: this.state.pet_name, refugee: this.state.refugee, city: this.state.city, price: this.state.price, imageUrl:this.state.imageUrl };
-    console.log(form);
-    request.post(`http://localhost:5000/rent/edit-pet/${this.props.match.params.id}`, {headers:{"Authorization": token}, form:{name: this.state.pet_name, refugee: this.state.refugee, city: this.state.city, price: this.state.price, description:this.state.pet_description, imageUrl:this.state.imageUrl }}, function(err,httpResponse,body){
-      console.log(form)
+    request.post(`http://localhost:5000/rent/edit-pet/${this.props.match.params.id}/`, {headers:{"Authorization": token}, form:{name: this.state.pet_name, refugee: this.state.refugee, city: this.state.city, price: this.state.price, description:this.state.pet_description, imageUrl:this.state.imageUrl }}, function(err,httpResponse,body){
+
+      this.setState({redirect: true})
+      }.bind(this)
+    )
+  }
+
+  deletePet = () =>{
+    const token = localStorage.getItem("token");    
+    request.post(`http://localhost:5000/rent/edit-pet/${this.props.match.params.id}/delete/`, {headers:{"Authorization": token}, }, function(err,httpResponse,body){
+      this.setState({redirect: true})
+      }.bind(this)
+    )
+  }
+
+  rentPet = () =>{
+    const token = localStorage.getItem("token");    
+    request.post(`http://localhost:5000/rent/${this.props.match.params.id}/`, {headers:{"Authorization": token}, }, function(err,httpResponse,body){
       this.setState({redirect: true})
       }.bind(this)
     )
@@ -61,14 +71,19 @@ export default class FormPage extends React.Component {
       [e.target.name]: e.target.value
     })
   }
-
+  
   render() {
 
 
     return (
-      <MDBContainer>
+      <MDBContainer className="mt-12">
+        
         <MDBRow>
           <MDBCol md="12">
+          
+            <MDBCard >
+            <MDBCardBody>
+
             <form>
               <p className="h4 text-center mb-4">Edita tu mascota</p>
               <label
@@ -164,11 +179,13 @@ export default class FormPage extends React.Component {
                 <MDBBtn color="unique" onClick={this.postForm}>
                   Editar
                 </MDBBtn>
-                <MDBBtn color="unique" type="submit">
-                  Borra
+                <MDBBtn color="unique" onClick={this.deletePet}>
+                  Borrar
                 </MDBBtn>
               </div>
             </form>
+            </MDBCardBody>
+            </MDBCard>
           </MDBCol>
         </MDBRow>
       </MDBContainer>

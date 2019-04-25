@@ -75,8 +75,7 @@ exports.getAddPets = (req, res, next) => {
   };
 
   exports.postDeletePet = (req, res, next) => {
-    const id = req.body.petId;
-
+    const id = req.params.petId;
     Pet.deleteById(id)
     .then(() => {
       res.send("hecho");

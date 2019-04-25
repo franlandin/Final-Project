@@ -21,7 +21,7 @@ function Layout(props) {
           <Route path='/register' component={RegisterForm}/>
           <Route path='/pet/edit/:id' component={FormPage}/>        
         </Switch>
-        <FooterPage/>
+        {/* <FooterPage/> */}
     </div>
   );
 }

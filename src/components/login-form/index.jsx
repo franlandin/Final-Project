@@ -74,10 +74,6 @@ class LoginForm extends Component {
                 <MDBBtn color="cyan" onClick={this.postForm}>
                   Login
                 </MDBBtn>
-                <MDBBtn color="cyan" onClick={this.postForm}>
-                  <NavLink to="/register">Register</NavLink>
-                  
-                </MDBBtn>
               </div>
             </form>          
         </MDBCol>
